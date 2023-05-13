@@ -5,7 +5,7 @@ const express = require("express");
 const { Match } = require("../models/Match.js");
 
 // Importamos la función que nos sirve para resetear los match:
-const { resetMatchs } = require("../utils/resetMatchs.js");
+const { resetMatches } = require("../utils/resetMatches.js");
 
 // Router propio de match:
 const router = express.Router();
@@ -108,7 +108,7 @@ router.post("/", async (req, res) => {
 router.delete("/reset", async (req, res) => {
   // Si funciona el reseteo...
   try {
-    await resetMatchs();
+    await resetMatches();
     res.send("Datos Match reseteados");
 
     // Si falla el reseteo...
