@@ -14,6 +14,7 @@ const playerSchema = new Schema(
     lastName: { type: String, required: true },
     position: { type: String, enum: allowedPosition, require: true },
     playerNumber: { type: Number, min: 1, max: 99, require: true },
+    team: { type: mongoose.Types.ObjectId, ref: "Team", require: false },
   },
   { timestamps: true } // Cada vez que se modifique un documento refleja la hora y fecha de modificación
 );
