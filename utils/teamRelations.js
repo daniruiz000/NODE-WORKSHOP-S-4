@@ -1,7 +1,7 @@
 // Importamos los modelos:
 const { Team } = require("../models/Team");
 const { Player } = require("../models/Player");
-const { shuffleArray } = require("../utils/shuffleArray");
+const { shuffleArray } = require("./shuffleArray");
 //  Función de relación entre de elementos de la colección.
 const teamRelations = async () => {
   try {
