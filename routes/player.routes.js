@@ -85,7 +85,7 @@ router.get("/name/:name", async (req, res) => {
   // Si funciona la lectura...
   try {
     // const player = await player.find({ firstName: name }); //Si quisieramos realizar una busqueda exacta, tal y como está escrito.
-    const player = await Player.find({ firstName: new RegExp("^" + playerName.toLowerCase(), "i") }); // Devolvemos los teams si funciona. Con modelo.find().
+    const player = await Player.find({ firstName: new RegExp("^" + playerName.toUpperCase(), "i") }); // Devolvemos los teams si funciona. Con modelo.find().
 
     //  Esperamos a que realice una busqueda en la que coincida el texto pasado por query params para la propiedad determinada pasada dentro de un objeto, porqué tenemos que pasar un objeto, sin importar mayusc o minusc.
     if (player?.length) {
