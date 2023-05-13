@@ -5,9 +5,9 @@ const express = require("express");
 const cors = require("cors");
 
 // Importamos los routers creados.
-const { playerRouter } = require("./routes/book.routes"); //  LO IMPORTAMOS COMO UN OBJETO.
-const { teamRouter } = require("./routes/author.routes");
-const { matchRouter } = require("./routes/publisher.routes");
+const { playerRouter } = require("./routes/player.routes"); //  LO IMPORTAMOS COMO UN OBJETO.
+const { teamRouter } = require("./routes/team.routes");
+const { matchRouter } = require("./routes/match.routes");
 
 // --------------------------------------------------------------------------------------------
 
