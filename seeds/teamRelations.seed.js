@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
 
 const { connect } = require("../db.js");
-const { resetMatches } = require("../utils/resetMatches.js");
+const { teamRelations } = require("../utils/teamRelations.js");
 
-const matchSeed = async () => {
+const teamRelationsSeed = async () => {
   try {
     await connect();
     console.log("Tenemos conexión");
-    await resetMatches();
+    await teamRelations();
   } catch (error) {
     console.error("ERROR AL CONECTAR CON LA BBDD");
     console.error(error);
@@ -16,4 +16,4 @@ const matchSeed = async () => {
   }
 };
 
-matchSeed();
+teamRelationsSeed();

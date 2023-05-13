@@ -10,7 +10,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install",
     "seed:players": "node ./seeds/player.seed.js",
-    "seed:teams": "node ./seeds/team.seed.js"
+    "seed:teams": "node ./seeds/team.seed.js",
+    "seed:matches": "node ./seeds/match.seed.js",
+    "seed:relations": "node ./seeds/teamRelations.seed.js",
+    "seed:all": "node ./seeds/player.seed.js && node ./seeds/team.seed.js && node ./seeds/teamRelations.seed.js && node ./seeds/match.seed.js"
   },
   "repository": {
     "type": "git",

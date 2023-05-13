@@ -123,7 +123,7 @@ const playerList = [
   },
 ];
 
-const resetPlayer = async () => {
+const resetPlayers = async () => {
   try {
     await Player.collection.drop();
     console.log("Players borrados correctamente");
@@ -137,4 +137,4 @@ const resetPlayer = async () => {
   }
 };
 
-module.exports = { resetPlayer };
+module.exports = { resetPlayers };
