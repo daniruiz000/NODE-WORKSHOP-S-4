@@ -26,6 +26,7 @@ router.get("/", async (req, res) => {
     const limit = req.query.limit ? parseInt(req.query.limit) : 10;
 
     const matchs = await Match.find() // Devolvemos los matchs si funciona. Con modelo.find().
+      .populate(["localTeam", "awayTeam"])
       .limit(limit) // La función limit se ejecuta sobre el .find() y le dice que coga un número limitado de elementos, coge desde el inicio a no ser que le añadamos...
       .skip((page - 1) * limit); // La función skip() se ejecuta sobre el .find() y se salta un número determinado de elementos y con este cálculo podemos paginar en función del limit. // Con populate le indicamos que si recoge un id en la propiedad señalada rellene con los campos de datos que contenga ese id
     //  Creamos una respuesta más completa con info de la API y los datos solicitados por el match:
@@ -60,7 +61,7 @@ router.get("/:id", async (req, res) => {
   // Si funciona la lectura...
   try {
     const id = req.params.id; //  Recogemos el id de los parametros de la ruta.
-    const match = await Match.findById(id); //  Buscamos un documentos con un id determinado dentro de nuestro modelo con modelo.findById(id a buscar).
+    const match = await Match.findById(id).populate(["localTeam", "awayTeam"]); //  Buscamos un documentos con un id determinado dentro de nuestro modelo con modelo.findById(id a buscar).
     if (match) {
       res.json(match); //  Si existe el match lo mandamos como respuesta en modo json.
     } else {
