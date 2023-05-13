@@ -26,6 +26,7 @@ router.get("/", async (req, res) => {
     const limit = req.query.limit ? parseInt(req.query.limit) : 10;
 
     const players = await Player.find() // Devolvemos los players si funciona. Con modelo.find().
+      .populate("team")
       .limit(limit) // La función limit se ejecuta sobre el .find() y le dice que coga un número limitado de elementos, coge desde el inicio a no ser que le añadamos...
       .skip((page - 1) * limit); // La función skip() se ejecuta sobre el .find() y se salta un número determinado de elementos y con este cálculo podemos paginar en función del limit. // Con populate le indicamos que si recoge un id en la propiedad señalada rellene con los campos de datos que contenga ese id
     //  Creamos una respuesta más completa con info de la API y los datos solicitados por el player:
@@ -60,7 +61,8 @@ router.get("/:id", async (req, res) => {
   // Si funciona la lectura...
   try {
     const id = req.params.id; //  Recogemos el id de los parametros de la ruta.
-    const player = await Player.findById(id); //  Buscamos un documentos con un id determinado dentro de nuestro modelo con modelo.findById(id a buscar).
+    const player = await Player.findById(id) //  Buscamos un documentos con un id determinado dentro de nuestro modelo con modelo.findById(id a buscar).
+      .populate("team");
     if (player) {
       res.json(player); //  Si existe el player lo mandamos como respuesta en modo json.
     } else {
@@ -85,7 +87,7 @@ router.get("/name/:name", async (req, res) => {
   // Si funciona la lectura...
   try {
     // const player = await player.find({ firstName: name }); //Si quisieramos realizar una busqueda exacta, tal y como está escrito.
-    const player = await Player.find({ firstName: new RegExp("^" + playerName.toLowerCase(), "i") }); // Devolvemos los teams si funciona. Con modelo.find().
+    const player = await Player.find({ firstName: new RegExp("^" + playerName.toUpperCase(), "i") }).populate("team"); // Devolvemos los teams si funciona. Con modelo.find().
 
     //  Esperamos a que realice una busqueda en la que coincida el texto pasado por query params para la propiedad determinada pasada dentro de un objeto, porqué tenemos que pasar un objeto, sin importar mayusc o minusc.
     if (player?.length) {
