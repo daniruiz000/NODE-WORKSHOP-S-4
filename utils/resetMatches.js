@@ -1,9 +1,9 @@
-const mongoose = require("mongoose");
 const { Team } = require("../models/Team");
 const { Match } = require("../models/Match");
-// Utils import
-const { getRandomDate } = require("../utils/getRandomDate");
-const { shuffleArray } = require("../utils/shuffleArray");
+
+const { generateRandomDate } = require("../utils/generateRandomDate");
+const { generateRandom } = require("../utils/generateRandom");
+
 const resetMatches = async (teams) => {
   try {
     const teams = await Team.find();
@@ -11,26 +11,25 @@ const resetMatches = async (teams) => {
       console.error("No hay teams en la BBDD.");
       return;
     }
-    const shuffledTeams = shuffleArray(teams);
+
     const matches = [];
-    // Generate matches for each round
-    for (let i = 0; i < shuffledTeams.length - 1; i++) {
-      // for (let j = 0; j < shuffledTeams.length / 2; j++) {
-      //   const localTeam = shuffledTeams[j];
-      //   const awayTeam = shuffledTeams[shuffledTeams.length - 1 - j];
-      const localTeam = shuffledTeams[i];
-      const awayTeam = shuffledTeams[i + 1];
-      // Create a new match object with a random date within the next 7 days
-      const match = {
-        localTeam: localTeam.id,
-        awayTeam: awayTeam.id,
-        localTeamGoal: 0,
-        awayTeamGoal: 0,
-        currentMatch: false,
-        matchDate: getRandomDate(new Date(), new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)),
-      };
-      matches.push(match);
-      // Rotate the teams to create different pairings for the next round
+    const currentDate = new Date();
+
+    for (let i = 0; i < teams.length; i++) {
+      for (let j = i + 1; j < teams.length; j++) {
+        const matchDate = generateRandomDate(currentDate);
+        const currentMatch = matchDate <= currentDate;
+
+        const match = {
+          localTeam: teams[i]._id,
+          awayTeam: teams[j]._id,
+          localTeamGoal: generateRandom(0, 5),
+          awayTeamGoal: generateRandom(0, 5),
+          currentMatch,
+          matchDate,
+        };
+        matches.push(match);
+      }
     }
     // Save the matches to the database
     await Match.collection.drop(); //  Esperamos a que borre los documentos de la colección matche de la BBDD.
