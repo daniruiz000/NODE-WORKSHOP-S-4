@@ -8,7 +8,9 @@
     "start:watch": "nodemon index.js",
     "lint": "eslint",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "seed:players": "node ./seeds/player.seed.js",
+    "seed:teams": "node ./seeds/team.seed.js"
   },
   "repository": {
     "type": "git",

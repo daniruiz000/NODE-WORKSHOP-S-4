@@ -7,7 +7,7 @@ const teamList = [
   { teamName: "PARIS SAINT GERMAIN", foundedIn: 1970, originCity: "PARIS" },
 ];
 
-const resetTeam = async () => {
+const resetTeams = async () => {
   try {
     await Team.collection.drop();
     console.log("Teams borrados correctamente");
@@ -21,6 +21,4 @@ const resetTeam = async () => {
   }
 };
 
-resetTeam();
-
-module.exports = { resetTeam };
+module.exports = { resetTeams };
