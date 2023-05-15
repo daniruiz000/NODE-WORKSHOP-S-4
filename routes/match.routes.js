@@ -6,6 +6,9 @@ const { Match } = require("../models/Match.js");
 
 // Importamos la función que nos sirve para resetear los match:
 const { resetMatches } = require("../utils/resetMatches.js");
+const { resetPlayers } = require("../utils/resetPlayers.js");
+const { resetTeams } = require("../utils/resetTeams.js");
+const { teamRelations } = require("../utils/teamRelations.js");
 
 // Router propio de match:
 const router = express.Router();
@@ -45,6 +48,7 @@ router.get("/", async (req, res) => {
 
     // Si falla la lectura...
   } catch (error) {
+    console.error(error);
     res.status(500).json(error); //  Devolvemos un código de error 500 y el error.
   }
 });
@@ -70,6 +74,7 @@ router.get("/:id", async (req, res) => {
 
     // Si falla la lectura...
   } catch (error) {
+    console.error(error);
     res.status(500).json(error); //  Devolvemos un código de error 500 y el error.
   }
 });
@@ -108,9 +113,19 @@ router.post("/", async (req, res) => {
 
 router.delete("/reset", async (req, res) => {
   // Si funciona el reseteo...
+  const all = req.query.all === "true";
+
   try {
-    await resetMatches();
-    res.send("Datos Match reseteados");
+    if (all) {
+      await resetPlayers();
+      await resetTeams();
+      await teamRelations();
+      await resetMatches();
+      res.send("Datos Globales reseteados");
+    } else {
+      await resetMatches();
+      res.send("Datos Match reseteados");
+    }
 
     // Si falla el reseteo...
   } catch (error) {
@@ -136,6 +151,7 @@ router.delete("/:id", async (req, res) => {
 
     // Si falla el borrado...
   } catch (error) {
+    console.error(error);
     res.status(500).json(error); //  Devolvemos un código 500 de error si falla el delete y el error.
   }
 });

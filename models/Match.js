@@ -10,8 +10,8 @@ const matchSchema = new Schema(
   {
     localTeam: { type: mongoose.Schema.Types.ObjectId, ref: "Team", required: true },
     awayTeam: { type: mongoose.Schema.Types.ObjectId, ref: "Team", required: true },
-    localTeamGoal: { type: Number, require: true },
-    awayTeamGoal: { type: Number, require: true },
+    localTeamGoal: { type: Number, min: [0, "Mínimo 0 goles"], require: true },
+    awayTeamGoal: { type: Number, min: [0, "Mínimo 0 goles"], require: true },
     currentMatch: { type: Boolean, require: true },
     matchDate: { type: Date, require: true },
   },
