@@ -11,8 +11,8 @@ const allowedPosition = ["GOALKEEPER", "DEFENDER", "MIDFIELDER", "FORWARD"];
 const playerSchema = new Schema(
   {
     firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
-    position: { type: String, enum: allowedPosition, require: true },
+    lastName: { type: String, trim: true, minLength: [3, "Mínimo tres caracteres"], max: [20, "Máximo 20 caracteres"], required: true },
+    position: { type: String, enum: allowedPosition, Uppercase: true, require: true },
     playerNumber: { type: Number, min: 1, max: 99, require: true },
     team: { type: mongoose.Types.ObjectId, ref: "Team", require: false },
   },
