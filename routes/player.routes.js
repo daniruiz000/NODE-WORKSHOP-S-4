@@ -71,6 +71,7 @@ router.get("/:id", async (req, res) => {
 
     // Si falla la lectura...
   } catch (error) {
+    console.error(error);
     res.status(500).json(error); //  Devolvemos un código de error 500 y el error.
   }
 });
@@ -98,6 +99,7 @@ router.get("/name/:name", async (req, res) => {
 
     // Si falla la lectura...
   } catch (error) {
+    console.error(error);
     res.status(500).json(error); //  Devolvemos un código de error 500 y el error.
   }
 });
@@ -164,6 +166,7 @@ router.delete("/:id", async (req, res) => {
 
     // Si falla el borrado...
   } catch (error) {
+    console.error(error);
     res.status(500).json(error); //  Devolvemos un código 500 de error si falla el delete y el error.
   }
 });
